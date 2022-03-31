@@ -16,9 +16,6 @@ module.exports = function (app) {
             app.channel('users/added').join(connection);
             app.channel('users/created').join(connection);
             // app.channel(`team/${connection.user.team}`).join(connection); // adding this user to their teams channel
-            console.log('====================================');
-            console.log(authResult, connection);
-            console.log('====================================');
         }
     });
 
@@ -28,15 +25,11 @@ module.exports = function (app) {
     });
 
     app.service('users').publish('created', () => {
-        return [
-            app.channel('users/created'),
-        ];
+        return [app.channel('users/created')];
     });
 
     app.service('users').publish('updated', () => {
-        return [
-            app.channel('users/created'),
-        ];
+        return [app.channel('users/created')];
     });
 
     app.service('fine-posts').publish('created', (finePost) => {

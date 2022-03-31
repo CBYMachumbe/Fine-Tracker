@@ -4,10 +4,10 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import AccountCircle from "@mui/icons-material/Logout";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { ColorModeContext } from "../../context/color-mode-context";
-import { useTheme } from "@mui/material";
+import { Tooltip, useTheme } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 export function FineTrackerAppBar({ isAuthenticated }) {
@@ -33,26 +33,34 @@ export function FineTrackerAppBar({ isAuthenticated }) {
         {isAuthenticated && (
           <>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge showZero badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
+            <Tooltip title="sign out">
+              <IconButton color="inherit">
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
           </>
         )}
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={colorMode.toggleColorMode}
-          color="inherit"
+        <Tooltip
+          title={`switch to ${
+            theme.palette.mode === "dark" ? "light" : "dark"
+          } mode`}
         >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
-        </IconButton>
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={colorMode.toggleColorMode}
+            color="inherit"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+        </Tooltip>
       </Toolbar>
     </MuiAppBar>
   );

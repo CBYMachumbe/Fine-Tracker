@@ -4,7 +4,6 @@ exports.Auth = class Auth {
     }
 
     async create(data) {
-        console.log(this.app.service('authentication'));
         return await this.app.service('authentication').create({ strategy: 'local', ...data });
     }
 };

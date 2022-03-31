@@ -9,6 +9,7 @@
     "@feathersjs/socketio-client": "^4.5.13",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.3",
+    "@mui/x-data-grid": "^5.7.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -21,7 +22,9 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-toastify": "^8.1.0",
+    "react-window": "^1.8.6",
     "socket.io-client": "2.4.0",
+    "tally-marks": "^1.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

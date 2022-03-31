@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth, useRequireAuth, useRouter } from "../../hooks";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,18 +14,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Copyright } from "../../components/Copyright/copy-right";
 import { routeDefinitions } from "../../lib/routes";
-import { notifyError } from "../../lib/toasts";
-import { validateEmail } from "../../lib/email-validator";
-import { validatePassword } from "../../lib/password-validator";
+import { Card } from "@mui/material";
 
 export function SignIn() {
   const { signIn, user } = useAuth();
   const { auth } = useRequireAuth();
   const { navigate } = useRouter();
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (auth) {
-      navigate(`${routeDefinitions.feed.pathWithoutParams}/${user._id}`);
+      navigate(`${routeDefinitions.home.path}`);
       return;
     }
   }, [auth, navigate, user]);
@@ -34,19 +33,11 @@ export function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const isValid =
-      validateEmail(data.get("email")) &&
-      validatePassword(data.get("password")).length === 0;
-
-    if (!isValid) return;
-
     try {
-      await signIn({
-        email: data.get("email"),
-        password: data.get("password"),
-      });
+      await signIn(data.get("email"), data.get("password"));
+      navigate(`${routeDefinitions.home.path}`);
     } catch (error) {
-      notifyError("Couldn't sign you in.", error, false);
+      setShowError(true);
     }
   };
 
@@ -100,6 +91,13 @@ export function SignIn() {
           >
             Sign In
           </Button>
+
+          {showError && (
+            <Card variant="outlined">
+              <Typography color="error">Couldn't sign you in</Typography>
+            </Card>
+          )}
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

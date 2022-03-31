@@ -1,5 +1,5 @@
 import "react-toastify/dist/ReactToastify.min.css";
-import * as React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -11,8 +11,18 @@ import { Container } from "@mui/material";
 import { Copyright } from "../Copyright/copy-right";
 import { ToastContainer } from "react-toastify";
 import { ColorModeContextProvider } from "../../context/color-mode-context";
+import { useRouter } from "../../hooks";
+import { routeDefinitions } from "../../lib/routes";
 
 export function AppLayout({ children, isAuthenticated }) {
+  const { navigate } = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate(routeDefinitions.login.pathWithoutParams);
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <ColorModeContextProvider>
       <Box sx={{ display: "flex" }}>
@@ -56,7 +66,7 @@ export function AppLayout({ children, isAuthenticated }) {
                         flexDirection: "column",
                       }}
                     >
-                      <ToastContainer />
+                      <ToastContainer theme="colored" />
                       {children}
                     </Paper>
                   </Grid>

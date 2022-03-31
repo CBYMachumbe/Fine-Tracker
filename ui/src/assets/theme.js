@@ -33,6 +33,36 @@ export const themeConfig = (mode) => {
           }),
         },
       },
+      MuiSelect: {
+        styleOverrides: {
+          root: () => ({
+            "& fieldset": {
+              borderRadius: "25px",
+              overflow: "none",
+            },
+          }),
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            borderRadius: "10px",
+            position: "relative",
+          },
+        },
+      },
+      MuiDataGrid: {
+        styleOverrides: {
+          root: {
+            "& .MuiDataGrid-columnSeparator": {
+              visibility: "hidden",
+            },
+            "& .MuiDataGrid-row. Mui-odd": {
+              backgroundColor: "#f3f3f3",
+            },
+          },
+        },
+      },
     },
     // typography: {
     //   fontFamily: "Open Sans",
